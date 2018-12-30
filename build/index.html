@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Your Cloud Computing Instance</title>
+    <style>
+        input[type=text],input[type=password],input[type=number]  {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit],input[type=reset] {
+            width: 100%;
+            background-color: gray;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit],input[type=reset]:hover {
+            background-color: darkslategrey;
+        }
+        
+        button{
+            background-color: darkslategrey;
+            width: 100%;
+            background-color: gray;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        div {
+            border-radius: 10px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        select
+        {
+            width: 30%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #ccc;
+        }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+        #push button { width: 9%; background: darkslategrey; border: none; padding: 10px; color: #eee; }
+        #push { padding: 3px; width: 100%; }
+        #push input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    </style>
+    <style src="./app.css"></style>
+    <script src="./jq.js"></script>
+    
+    
+    <script src="./app.js"></script>
+</head>
+<body>
+<div id="main" >
+    <form  id="vm">
+        <fieldset>
+            <legend>VM information:</legend>
+            <p>VM instruct set:</p>
+            <select name="vmtype" id='vmtype'>
+                <option value="2">AVX512</option>
+                <option value="1">OpenCl</option>
+                <option value="0">CUDA</option>
+            </select>
+            <br>
+            Vm's Name:<input type="text" id="vmName" name="vmName" >
+            CPU Core(s):<input type="number" id="cpuCore" name="cpucore" value="4">
+            Memory Size(GB):<input type="number" id="memSize" name="memSize" value="4">
+            VRAM Size(GB):<input type="number" id="vmemSize" name="vmemSize" value="4">
+            Compute Power(TFlops):<input type="number" id="vpower" name="vpower" value="4">
+            <input type="submit" class="butt" value="Submit" >
+            <input type="reset" class="butt" value="Reset">
+            
+        </fieldset>
+    </form>
+    <button class="butt" id="test" >test</button>
+</div>
+<div>
+    <h1>Console message<br/></h1>
+    <ul id="resultList"></ul>
+</div>
+
+
+</body>
+
+</html>

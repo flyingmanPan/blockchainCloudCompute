@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Your Cloud Computing Instance</title>
+    <link href="./app.css" rel="stylesheet" type="text/css" />
+    <script src="./jq.js"></script>
+    <script src="./app.js"></script>
+</head>
+<body>
+<div id="main" >
+    <form  id="vm">
+        <fieldset>
+            <legend>VM information:</legend>
+            <p>VM instruct set:</p>
+            <select name="vmtype" id='vmtype'>
+                <option value="2">AVX512</option>
+                <option value="1">OpenCl</option>
+                <option value="0">CUDA</option>
+            </select>
+            <br>
+            Vm's Name:<input type="text" id="vmName" name="vmName" >
+            CPU Core(s):<input type="number" id="cpuCore" name="cpucore" value="4">
+            Memory Size(GB):<input type="number" id="memSize" name="memSize" value="4">
+            VRAM Size(GB):<input type="number" id="vmemSize" name="vmemSize" value="4">
+            Compute Power(TFlops):<input type="number" id="vpower" name="vpower" value="4">
+            <input type="submit" class="butt" value="Submit" >
+            <input type="reset" class="butt" value="Reset">
+        </fieldset>
+    </form>
+</div>
+<h3 id="banner"></h3>
+<h3 id="bannerUser"></h3>
+<h1>VM list<br/></h1>
+<ul>
+    <li>All</li>
+    <li>My</li>
+    <li>Paid</li>
+    <li>Can accept</li>
+</ul>
+<div id="vmlist">
+    <div id="demo">
+        <ul>
+            <li>Name:</li>
+            <li>Core:</li>
+            <li>Mem:</li>
+            <li>Vpower</li>
+            <li>Vmem</li>
+        </ul>
+        <button type="button" class="btn" > Accept</button>
+        <button type="button" class="btn" > Link</button>
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
