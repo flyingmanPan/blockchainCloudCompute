@@ -9,7 +9,8 @@ contract CloudCompute
         string vmToken;
         address vmUserAddr;
         address vmRunnerAddr;
-        bool hadRun;
+        bool hadBegin;
+        bool hadEnd;
         string ipAddr;
         uint core;
         uint ramsize;
@@ -48,7 +49,8 @@ contract CloudCompute
             vmToken:"null",
             vmUserAddr:msg.sender,
             vmRunnerAddr:address(0x00),
-            hadRun:false,
+            hadBegin:false,
+            hadEnd:false,
             ipAddr: "null"  //20 default
         }));
         return true;
@@ -57,10 +59,23 @@ contract CloudCompute
 
     function acceptInstance(uint index,string memory iipaddr,string memory token) public
     {
-        vmInstances[index].vmRunnerAddr = msg.sender;
-        vmInstances[index].hadRun = true;
-        vmInstances[index].ipAddr = iipaddr;
-        vmInstances[index].vmToken = token;
+        if(!vmInstances[index].hadBegin&&vmInstances[index].vmUserAddr!=msg.sender)
+        {
+            vmInstances[index].vmRunnerAddr = msg.sender;
+            vmInstances[index].hadBegin = true;
+            vmInstances[index].ipAddr = iipaddr;
+            vmInstances[index].vmToken = token;
+        }
+    }
+
+    function payment(uint index) public view returns(address,bool)
+    {
+        return (vmInstances[index].vmRunnerAddr,vmInstances[index].hadBegin);
+    }
+    function stopVm(uint index) public  
+    {
+        if(vmInstances[index].hadBegin)
+            vmInstances[index].hadEnd = true;
     }
 
     function getAllvmLen() public view returns (uint)
@@ -86,9 +101,9 @@ contract CloudCompute
             vmInstances[index].vmUserAddr);
     }
 
-    function checkStatus(uint index) public view returns(bool sufficient)
+    function checkStatus(uint index) public view returns(bool,bool)
     {
-        return vmInstances[index].hadRun;
+        return (vmInstances[index].hadBegin,vmInstances[index].hadEnd);
     }
 
     function accessVm(uint index) public view returns(
@@ -97,6 +112,7 @@ contract CloudCompute
         if(vmInstances[index].vmUserAddr != msg.sender) return ("error","error");
         return (vmInstances[index].ipAddr,vmInstances[index].vmToken);
     }
+
 
     
 }

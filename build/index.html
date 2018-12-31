@@ -5,73 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Order Your Cloud Computing Instance</title>
-    <style>
-        input[type=text],input[type=password],input[type=number]  {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input[type=submit],input[type=reset] {
-            width: 100%;
-            background-color: gray;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type=submit],input[type=reset]:hover {
-            background-color: darkslategrey;
-        }
-        
-        button{
-            background-color: darkslategrey;
-            width: 100%;
-            background-color: gray;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        div {
-            border-radius: 10px;
-            background-color: #f2f2f2;
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
-        }
-        select
-        {
-            width: 30%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: #ccc;
-        }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
-        #push button { width: 9%; background: darkslategrey; border: none; padding: 10px; color: #eee; }
-        #push { padding: 3px; width: 100%; }
-        #push input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-    </style>
-    <style src="./app.css"></style>
+    <link href="./app.css" rel="stylesheet" type="text/css" />
     <script src="./jq.js"></script>
-    
-    
     <script src="./app.js"></script>
 </head>
 <body>
@@ -93,14 +28,31 @@
             Compute Power(TFlops):<input type="number" id="vpower" name="vpower" value="4">
             <input type="submit" class="butt" value="Submit" >
             <input type="reset" class="butt" value="Reset">
-            
         </fieldset>
     </form>
-    <button class="butt" id="test" >test</button>
 </div>
-<div>
-    <h1>Console message<br/></h1>
-    <ul id="resultList"></ul>
+<h3 id="banner"></h3>
+<h3 id="bannerUser"></h3>
+<h1>VM list<br/></h1>
+<ul class="navbar">
+    <li id="listall" class="navbtn">All</li>
+    <li id="listnotack" class="navbtn">My VMs (not accept)</li>
+    <li id="listack" class="navbtn">My VMs (accepted)</li>
+    <li id="listcanack" class="navbtn">Can accept</li>
+</ul>
+<div id="vmlist">
+    <div id="demo">
+        <ul class="items">
+            <li class="properity">Name:</li>
+            <li class="properity">Core:</li>
+            <li class="properity">Mem:</li>
+            <li class="properity">Vpower</li>
+            <li class="properity">Vmem</li>
+        </ul>
+        <button type="button" class="btn" > Accept</button>
+        <button type="button" class="btn" > Link</button>
+    </div>
+
 </div>
 
 

@@ -50,14 +50,31 @@ button{
   padding: 12px;
   margin: 5px;
 }
+
+
+
 ul {
   list-style-type: none;
   margin:0;
   padding: 0;
   overflow: hidden;
-  background-color: #2e5685;
+  
 }
-
+.navbar{
+  background-color: #7986cb;
+}
+.navbtn:hover{
+  background-color: #3949ab;
+}
+.items{
+  background-color: #ffb74d;
+}
+.my{
+  background-color: #42a82e;
+}
+.properity:hover{
+  background-color: #ff9800;
+}
 li {
   float: left;
   display: block;
@@ -67,9 +84,6 @@ li {
   text-decoration: none;
 }
 
-li:hover {
-  background-color: #a197fc;
-}
 div {
   border-radius: 10px;
   background-color: #f2f2f2;
