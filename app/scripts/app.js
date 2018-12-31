@@ -10,6 +10,8 @@ let account
 let ipaddr
 
 var currentAccount = web3.eth.accounts[0];
+
+//Listener of account
 var accountInterval = setInterval(function() {
   if (web3.eth.accounts[0] !== account) {
     currentAccount = web3.eth.accounts[0];
@@ -22,7 +24,10 @@ var accountInterval = setInterval(function() {
   }
 }, 2000);
 
+
 const App={
+
+    //init the account info
     init:async ()=>{
         cc.setProvider(web3.currentProvider)
         web3.eth.getAccounts(function (err, accs) {
@@ -40,16 +45,26 @@ const App={
             currentAccount=accounts[0]
             $('#bannerUser').text('Address: '+currentAccount);
         })
-        
+        //Bind click events
         App.bindEvents();
+
+        //Call initWeb3
         return await App.initWeb3();
     },
 
+
+    initWeb3:async ()=>{
+        //Update the main list
+        return App.updateList();
+    },
+
+    //opcode: list type
     updateList:async (opcode)=>{
-        
+        //the contract instance
         var ccinstance;
         let cclen;
-        
+
+        //promise chain
         cc.deployed().then((instance)=>{
             ccinstance=instance;
             return ccinstance.getAllvmLen({ from: account });
@@ -57,12 +72,15 @@ const App={
             console.log(value.toNumber());
             return value.toNumber();
         }).then((value)=>{
+            //clean the list and add one by one
             $('#vmlist').empty();
             for (let index = 0; index < value; index++) {
+                //check the state
                 let hadstart;
                 let hadend;
                 var local2=new Promise((resolve,reject)=>{
                     setTimeout(()=>{
+                        //call contract's function to check
                         resolve(ccinstance.checkStatus(index,{ from: account }));
                     },10);
                 });
@@ -70,9 +88,11 @@ const App={
                     hadstart=value[0];
                     hadend=value[1];
                 }).then(()=>{
+                    //call contract's function to get vm's info
                     return ccinstance.getVm(index,{ from: account });
                 }).then((value)=>{
                     console.log(index+' start:'+hadstart+' end:'+hadend);
+                    //display or not
                     if(opcode==1)
                     {
                         if(value[6]!=currentAccount||hadstart)
@@ -94,6 +114,7 @@ const App={
                     }
                     if(!hadend)
                     {
+                    //add the vm's info
                     $('#vmlist').append($('<div>').attr('id',index)
                         .append($('<ul>').attr('id','ul'+index).attr('class','items')
                             .append($('<li>').text('Name:'+value[0]).attr('class','properity'))
@@ -155,27 +176,15 @@ const App={
                     return 5;
                 }).then((msg)=>{
                     console.log('main return '+msg);
-                    
                 });
-                
-                //let vm=ccinstance.getVm(index,{ from: account });
         }
         }).catch((err)=>{
             console.log(err.message);
         });
-        
     },
-
-
-    initWeb3:async ()=>{
-        
-        return App.updateList();
-    },
-
     
     handleDeploy:()=>{
         console.log('click');
-        
         var ccinstance;
         web3.eth.getAccounts((error,accounts)=>{
             if(error)
@@ -224,7 +233,6 @@ const App={
             console.log(err.message);
         });
     },
-
     handleStop:(index)=>{
         var ccinstance;
         cc.deployed().then((instance)=>{
@@ -241,6 +249,7 @@ const App={
             console.log(err.message);
         });
     },
+
     handlePayment:(index)=>{
         var ccinstance;
         cc.deployed().then((instance)=>{
@@ -312,20 +321,17 @@ const App={
 window.App = App
 
 window.addEventListener('load', function () {
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+
+    //Get web3
     if (typeof web3 !== 'undefined') {
-      // Use Mist/MetaMask's provider
       window.web3 = new Web3(web3.currentProvider)
     } else {
-      console.warn(
-        'No web3 detected. Falling back to http://127.0.0.1:9545.' +
-        ' You should remove this fallback when you deploy live, as it\'s inherently insecure.' +
-        ' Consider switching to Metamask for development.' +
-        ' More info here: http://truffleframework.com/tutorials/truffle-and-metamask'
-      )
-      // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-      window.web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:9545'))
+      console.warn('No web3 detected')
+      window.web3 = new Web3(
+          new Web3.providers.HttpProvider('http://127.0.0.1:7545'))
     }
+
+    //Get user ip
     $(document).ready(()=>{
         $.get('http://jsonip.com', (res) =>{
             console.log(res.ip);
@@ -333,7 +339,8 @@ window.addEventListener('load', function () {
             $('#banner').text('Welcome user '+' from: '+ipaddr);
         });
     });
-        
+
+    //Init the main class
     App.init()
 })
 

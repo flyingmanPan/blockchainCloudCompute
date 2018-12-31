@@ -112,7 +112,4 @@ contract CloudCompute
         if(vmInstances[index].vmUserAddr != msg.sender) return ("error","error");
         return (vmInstances[index].ipAddr,vmInstances[index].vmToken);
     }
-
-
-    
 }
